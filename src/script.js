@@ -12,4 +12,4 @@ shuffle(array);
 
 renderer.setSize(300, 100);
 renderer.renderArray(array, 3, 1);
-sorts.insertionSort(array, renderer);
+sorts.quickSort(array, renderer);
