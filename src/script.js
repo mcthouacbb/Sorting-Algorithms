@@ -1,5 +1,6 @@
 import { renderer } from "./renderer.js";
 import { shuffle } from "./utils.js";
+import * as sorts from "./sorts/sorts.js";
 
 const array = new Array(100);
 
@@ -11,3 +12,4 @@ shuffle(array);
 
 renderer.setSize(300, 100);
 renderer.renderArray(array, 3, 1);
+sorts.insertionSort(array, renderer);

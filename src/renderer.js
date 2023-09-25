@@ -12,10 +12,10 @@ class Renderer {
     }
 
     renderArray(arr, wscale, hscale) {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         for (let i = 0; i < arr.length; i++) {
             let x = i * wscale;
             let h = arr[i] * hscale;
-            console.log(h, arr[i], hscale);
             this.ctx.fillRect(x, this.canvas.height - h, wscale, h);
         }
     }

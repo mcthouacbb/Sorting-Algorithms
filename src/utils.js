@@ -5,3 +5,9 @@ export function shuffle(array, begin = 0, end = array.length) {
         [array[end], array[idx]] = [array[idx], array[end]];
     }
 }
+
+export async function sleep(ms) {
+    return new Promise((res) => {
+        setTimeout(res, ms);
+    });
+}
