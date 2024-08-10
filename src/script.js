@@ -2,7 +2,7 @@ import { renderer } from "./renderer.js";
 import { shuffle } from "./utils.js";
 import * as sorts from "./sorts/sorts.js";
 
-const array = new Array(50);
+const array = new Array(100);
 
 for (let i = 0; i < array.length; i++) {
     array[i] = i;
