@@ -1,6 +1,6 @@
 import { Rect } from "./rect.js";
 
-const canvas = document.getElementById("canvas");
+const canvas = document.getElementById("render-canvas");
 
 class Renderer {
     constructor(canvas) {
@@ -9,9 +9,8 @@ class Renderer {
     }
 
     setSize(w, h) {
-        // this.canvas.width = w;
-        // this.canvas.height = h;
-        console.log(this.canvas);
+        this.canvas.width = w;
+        this.canvas.height = h;
     }
 
     renderArray(arr, scaleX, scaleY) {
