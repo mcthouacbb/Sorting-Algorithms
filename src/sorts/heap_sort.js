@@ -25,6 +25,6 @@ export async function heapSort(array, renderer, region) {
         [array[i], array[0]] = [array[0], array[i]]
         await heapify(i, 0);
         renderer.renderArray(array, region);
-        await sleep(5);
+        await sleep(20);
     }
 }
