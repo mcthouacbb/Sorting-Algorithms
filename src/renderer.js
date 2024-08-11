@@ -1,5 +1,3 @@
-import { Rect } from "./rect.js";
-
 const canvas = document.getElementById("render-canvas");
 const MAX_VALUE = 100;
 
