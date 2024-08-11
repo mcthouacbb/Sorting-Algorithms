@@ -16,20 +16,17 @@ class Renderer {
         this.sy = sy;
     }
 
-    renderArray(arr, region) {
+    renderArray(arr, region, markers = new Map()) {
         this.ctx.clearRect(0, this.canvas.height - (region + 1) * MAX_VALUE * this.sy, this.canvas.width, MAX_VALUE * this.sy);
         for (let i = 0; i < arr.length; i++) {
             let rminX = i * this.sx;
             let rmaxX = rminX + this.sx;
             let rminY = this.canvas.height - arr[i] * this.sy - region * MAX_VALUE * this.sy;
             let rmaxY = this.canvas.height - region * MAX_VALUE * this.sy;
-            // if (rmaxX <= cminX || rminX > cmaxX || rmaxY <= cminY || rminY > cmaxY)
-                // continue;
-            // rminX = Math.max(rminX, cminX);
-            // rmaxX = Math.min(rmaxX, cmaxX);
-            // rminY = Math.max(rminY, cminY);
-            // rmaxY = Math.min(rmaxY, cmaxY);
-            // console.log(rminX, rmaxX, rminY, rmaxY);
+            if (markers.has(i))
+                this.ctx.fillStyle = markers.get(i);
+            else
+                this.ctx.fillStyle = "rgb(0, 0, 0)";
             this.ctx.fillRect(rminX, rminY, rmaxX - rminX, rmaxY - rminY);
         }
     }
