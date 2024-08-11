@@ -12,11 +12,10 @@ shuffle(array);
 
 const array2 = array.slice();
 const array3 = array.slice();
+const array4 = array.slice();
 
-renderer.setSize(300, 300, 3, 1);
-renderer.renderArray(array, 0);
-renderer.renderArray(array2, 1);
-renderer.renderArray(array3, 2);
+renderer.setSize(300, 400, 3, 1);
 sorts.quickSort(array, renderer, 0);
 sorts.insertionSort(array2, renderer, 1);
 sorts.bubbleSort(array3, renderer, 2);
+sorts.heapSort(array4, renderer, 3);
