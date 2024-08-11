@@ -6,7 +6,7 @@ import { sleep } from "./utils.js";
 const array = new Array(100);
 
 for (let i = 0; i < array.length; i++) {
-    array[i] = i;
+    array[i] = i + 1;
 }
 
 shuffle(array);
