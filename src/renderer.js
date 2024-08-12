@@ -1,3 +1,5 @@
+import { RenderContext } from "./context.js";
+
 const canvas = document.getElementById("render-canvas");
 const MAX_VALUE = 100;
 
@@ -7,6 +9,20 @@ class Renderer {
         this.ctx = canvas.getContext("2d");
         this.sx = 1;
         this.sy = 1;
+        this.contexts = [];
+    }
+
+    renderContexts(time) {
+        for (const ctx of this.contexts) {
+            let render = ctx.selectRender(time);
+            this.renderArray(render.array, ctx.region, render.markers);
+        }
+    }
+
+    createContext(array, region) {
+        let context = new RenderContext(array, region);
+        this.contexts.push(context);
+        return context;
     }
 
     setSize(w, h, sx, sy) {

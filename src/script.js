@@ -26,12 +26,7 @@ function testRender() {
     prevTime = currTime;
 
     time += dt;
-
-    let render = context.selectRender(time);
-    console.log(render);
-    if (!render)
-        return;
-    renderer.renderArray(render.array, context.region, render.markers);
+    renderer.renderContexts(time);
 
     window.requestAnimationFrame(testRender);
 }
@@ -43,10 +38,8 @@ async function init() {
     
     await sleep(1000);
 
-    context = new RenderContext(renderer, 0, array.slice());
-    sorts.quickSort(context);
-
-
+    sorts.quickSort(renderer.createContext(array.slice(), 0));
+    sorts.quickSort(renderer.createContext(array.slice(), 1));
     
     prevTime = performance.now();
     window.requestAnimationFrame(testRender);

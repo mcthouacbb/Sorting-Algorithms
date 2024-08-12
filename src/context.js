@@ -1,9 +1,8 @@
 import { Timer } from "./timer.js";
 
 export class RenderContext {
-    constructor(renderer, region, array) {
+    constructor(array, region) {
         this.timer = new Timer();
-        this.renderer = renderer;
         this.region = region;
         this.array = array;
         this.renders = [];
@@ -19,7 +18,7 @@ export class RenderContext {
             if (this.renders[i].time <= currTime)
                 break;
         }
-        return this.renders.splice(0, i + 1)[i];
+        return this.renders[i];
     }
 }
 
