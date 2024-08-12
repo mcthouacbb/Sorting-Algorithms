@@ -25,7 +25,6 @@ export function mergeSortImpl(contextSrc, contextDst, begin, end) {
     if (end - begin <= 1)
         return;
     let middle = Math.floor((begin + end) / 2);
-    console.log(begin, middle, end);
     mergeSortImpl(contextDst, contextSrc, begin, middle);
     mergeSortImpl(contextDst, contextSrc, middle, end);
     merge(contextSrc, contextDst, begin, middle, end);
