@@ -9,13 +9,13 @@ function partition(context, begin, end, pivot) {
     for (;;) {
         do {
             begin++;
-            context.render(context.timer.currTime, mapInit([oldBegin, oldEnd, begin, end], ["rgb(242, 143, 44)", "rgb(242, 143, 44)", "rgb(147, 98, 252)", "rgb(147, 98, 252)"]));
+            context.render(mapInit([oldBegin, oldEnd, begin, end], ["rgb(242, 143, 44)", "rgb(242, 143, 44)", "rgb(147, 98, 252)", "rgb(147, 98, 252)"]));
             context.timer.wait(5);
         } while (array[begin] < pivot);
 
         do {
             end--;
-            context.render(context.timer.currTime, mapInit([oldBegin, oldEnd, begin, end], ["rgb(242, 143, 44)", "rgb(242, 143, 44)", "rgb(147, 98, 252)", "rgb(147, 98, 252)"]));
+            context.render(mapInit([oldBegin, oldEnd, begin, end], ["rgb(242, 143, 44)", "rgb(242, 143, 44)", "rgb(147, 98, 252)", "rgb(147, 98, 252)"]));
             context.timer.wait(5);
         } while (array[end] > pivot);
 
@@ -23,7 +23,7 @@ function partition(context, begin, end, pivot) {
             return end;
 
         [array[begin], array[end]] = [array[end], array[begin]];
-        context.render(context.timer.currTime, mapInit([oldBegin, oldEnd, begin, end], ["rgb(242, 143, 44)", "rgb(242, 143, 44)", "rgb(147, 98, 252)", "rgb(147, 98, 252)"]));
+        context.render(mapInit([oldBegin, oldEnd, begin, end], ["rgb(242, 143, 44)", "rgb(242, 143, 44)", "rgb(147, 98, 252)", "rgb(147, 98, 252)"]));
         context.timer.wait(5);
     }
 }
@@ -40,7 +40,7 @@ export function quickSortImpl(context, begin, end) {
         pivotIdx--;
     let pivot = context.array[pivotIdx];
     pivotIdx = partition(context, begin, end, pivot);
-    context.render(context.timer.currTime, mapInit([begin, end - 1], ["rgb(242, 143, 44)", "rgb(242, 143, 44)"]));
+    context.render(mapInit([begin, end - 1], ["rgb(242, 143, 44)", "rgb(242, 143, 44)"]));
     context.timer.wait(5);
     quickSortImpl(context, begin, pivotIdx + 1);
     quickSortImpl(context, pivotIdx + 1, end);

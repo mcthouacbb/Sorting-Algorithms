@@ -8,8 +8,8 @@ export class RenderContext {
         this.renders = [];
     }
 
-    render(time, markers) {
-        this.renders.push(new Render(time, this.array, markers));
+    render(markers) {
+        this.renders.push(new Render(this.timer.currTime, this.array, markers));
     }
 
     selectRender(currTime) {

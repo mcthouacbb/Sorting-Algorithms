@@ -39,7 +39,7 @@ async function init() {
     await sleep(1000);
 
     sorts.quickSort(renderer.createContext(array.slice(), 0));
-    sorts.quickSort(renderer.createContext(array.slice(), 1));
+    sorts.heapSort(renderer.createContext(array.slice(), 1));
     
     prevTime = performance.now();
     window.requestAnimationFrame(testRender);
