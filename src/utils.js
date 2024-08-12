@@ -11,3 +11,10 @@ export async function sleep(ms) {
         setTimeout(res, ms);
     });
 }
+
+export function mapInit(keys, values) {
+    let m = new Map();
+    for (let i = 0; i < keys.length; i++)
+        m.set(keys[i], values[i]);
+    return m;
+}

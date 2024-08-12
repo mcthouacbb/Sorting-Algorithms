@@ -6,7 +6,7 @@ export async function bubbleSort(array, renderer, region) {
             if (array[j] > array[j + 1])
                 [array[j], array[j + 1]] = [array[j + 1], array[j]];
             renderer.renderArray(array, region);
-            await sleep(5);
+            await sleep(8);
         }
     }
 }
