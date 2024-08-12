@@ -9,7 +9,7 @@ function dist(i) {
     return i;
 }
 
-const array = new Array(300);
+const array = new Array(50);
 
 for (let i = 0; i < array.length; i++) {
     array[i] = Math.ceil(dist(i / (array.length - 1)) * 100);
@@ -37,9 +37,9 @@ async function init() {
     
     await sleep(250);
 
-    sorts.quickSort(renderer.createContext(array.slice(), 0));
-    sorts.heapSort(renderer.createContext(array.slice(), 1));
-    sorts.shellSort(renderer.createContext(array.slice(), 2));
+    sorts.bubbleSort(renderer.createContext(array.slice(), 0));
+    sorts.insertionSort(renderer.createContext(array.slice(), 1));
+    sorts.selectionSort(renderer.createContext(array.slice(), 2));
     
     prevTime = performance.now();
     window.requestAnimationFrame(testRender);

@@ -8,7 +8,7 @@ export class RenderContext {
         this.renders = [];
     }
 
-    render(markers) {
+    render(markers = new Map()) {
         this.renders.push(new Render(this.timer.currTime, this.array, markers));
     }
 
