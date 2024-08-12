@@ -27,7 +27,7 @@ export async function heapSort(array, renderer, region) {
         if (largest != node) {
             [array[largest], array[node]] = [array[node], array[largest]];
             renderer.renderArray(array, region, markers);
-            await sleep(20);
+            await sleep(15);
             await heapify(len, largest);
         }
         if (left < len)
@@ -45,6 +45,6 @@ export async function heapSort(array, renderer, region) {
         markers.delete(i);
         await heapify(i, 0);
         renderer.renderArray(array, region, markers);
-        await sleep(20);
+        await sleep(15);
     }
 }

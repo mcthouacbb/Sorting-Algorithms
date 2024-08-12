@@ -4,7 +4,8 @@ import * as sorts from "./sorts/sorts.js";
 import { sleep } from "./utils.js";
 
 function dist(i) {
-    return 6 * i * i * i * i * i - 15 * i * i * i * i + 10 * i * i * i;
+    // return 6 * i * i * i * i * i - 15 * i * i * i * i + 10 * i * i * i;
+    return i;
 }
 
 const array = new Array(300);
@@ -23,16 +24,16 @@ async function init() {
     renderer.renderArray(array, 0);
     renderer.renderArray(array2, 1);
     renderer.renderArray(array3, 2);
-    renderer.renderArray(array4, 3);
-    renderer.renderArray(array5, 4);
+    // renderer.renderArray(array4, 3);
+    // renderer.renderArray(array5, 4);
     
     await sleep(1000);
 
-    sorts.shellSort(array, renderer, 0, sorts.GapSequence.Ci01);
-    sorts.shellSort(array2, renderer, 1, sorts.GapSequence.Se86);
-    sorts.shellSort(array3, renderer, 2, sorts.GapSequence.Is85);
-    sorts.shellSort(array4, renderer, 3, sorts.GapSequence.Se82);
-    sorts.shellSort(array5, renderer, 4, sorts.GapSequence.Kn73);
+    sorts.quickSort(array, renderer, 0);
+    sorts.shellSort(array2, renderer, 1);
+    sorts.heapSort(array3, renderer, 2);
+    // sorts.insertionSort(array4, renderer, 3);
+    // sorts.selectionSort(array5, renderer, 4);
 }
 
 init();
