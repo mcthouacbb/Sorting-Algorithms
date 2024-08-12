@@ -9,7 +9,7 @@ function dist(i) {
     return i;
 }
 
-const array = new Array(100);
+const array = new Array(600);
 
 for (let i = 0; i < array.length; i++) {
     array[i] = Math.ceil(dist(i / (array.length - 1)) * 100);
@@ -33,7 +33,7 @@ function testRender() {
 
 let context;
 async function init() {
-    renderer.setSize(1200, 500, 4, 1);
+    renderer.setSize(1200, 500, 2, 1);
     
     await sleep(250);
 

@@ -12,8 +12,8 @@ function merge(contextSrc, contextDst, begin, begin2, end) {
             dstArray[curr] = srcArray[srcR++];
         contextSrc.render(mapInit([srcL, srcR, end], ["rgb(0, 255, 0)", "rgb(0, 255, 0)", "rgb(255, 0, 0)"]));
         contextDst.render(mapInit([curr, end], ["rgb(0, 255, 0)", "rgb(255, 0, 0)"]));
-        contextSrc.timer.wait(5);
-        contextDst.timer.wait(5);
+        contextSrc.timer.wait(8);
+        contextDst.timer.wait(8);
     }
 }
 
