@@ -1,6 +1,6 @@
 import { Range, mapInit } from "../utils.js";
 
-export async function insertionSort(context) {
+export function insertionSort(context) {
     const array = context.array;
     for (let i = 1; i < array.length; i++) {
         for (let j = i; j > 0 && array[j] < array[j - 1]; j--) {

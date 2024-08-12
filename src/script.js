@@ -41,6 +41,7 @@ async function init() {
     sorts.insertionSort(renderer.createContext(array.slice(), 1));
     sorts.selectionSort(renderer.createContext(array.slice(), 2));
     
+    
     prevTime = performance.now();
     window.requestAnimationFrame(testRender);
 }
