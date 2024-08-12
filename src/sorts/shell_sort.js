@@ -38,13 +38,14 @@ const GAPS = [
     Kn73Gaps
 ];
 
-export async function shellSort(array, renderer, region, sequence = GapSequence.Ci01) {
+export function shellSort(context, sequence = GapSequence.Ci01) {
+    const array = context.array;
     for (const gap of GAPS[sequence]) {
         for (let i = gap; i < array.length; i++) {
             for (let j = i; j >= gap && array[j] < array[j - gap]; j -= gap) {
                 [array[j], array[j - gap]] = [array[j - gap], array[j]];
-                renderer.renderArray(array, region, mapInit([i, j - gap], ["rgb(147, 98, 252)", "rgb(242, 143, 44)"]));
-                await sleep(20);
+                context.render(mapInit([i, j - gap], ["rgb(147, 98, 252)", "rgb(242, 143, 44)"]));
+                context.timer.wait(13);
             }
         }
     }

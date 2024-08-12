@@ -10,13 +10,13 @@ function partition(context, begin, end, pivot) {
         do {
             begin++;
             context.render(mapInit([oldBegin, oldEnd, begin, end], ["rgb(242, 143, 44)", "rgb(242, 143, 44)", "rgb(147, 98, 252)", "rgb(147, 98, 252)"]));
-            context.timer.wait(5);
+            context.timer.wait(2);
         } while (array[begin] < pivot);
 
         do {
             end--;
             context.render(mapInit([oldBegin, oldEnd, begin, end], ["rgb(242, 143, 44)", "rgb(242, 143, 44)", "rgb(147, 98, 252)", "rgb(147, 98, 252)"]));
-            context.timer.wait(5);
+            context.timer.wait(2);
         } while (array[end] > pivot);
 
         if (begin >= end)

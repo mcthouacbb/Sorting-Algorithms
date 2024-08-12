@@ -34,12 +34,12 @@ function testRender() {
 let context;
 async function init() {
     renderer.setSize(1200, 500, 4, 1);
-    renderer.renderArray(array, 0);
     
-    await sleep(1000);
+    await sleep(250);
 
     sorts.quickSort(renderer.createContext(array.slice(), 0));
     sorts.heapSort(renderer.createContext(array.slice(), 1));
+    sorts.shellSort(renderer.createContext(array.slice(), 2));
     
     prevTime = performance.now();
     window.requestAnimationFrame(testRender);
