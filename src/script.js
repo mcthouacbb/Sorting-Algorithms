@@ -29,10 +29,10 @@ async function init() {
     
     await sleep(1000);
 
-    sorts.quickSort(array, renderer, 0);
+    sorts.insertionSort(array4, renderer, 0);
     sorts.shellSort(array2, renderer, 1);
-    sorts.heapSort(array3, renderer, 2);
-    // sorts.insertionSort(array4, renderer, 3);
+    sorts.quickSort(array, renderer, 2);
+    sorts.heapSort(array3, renderer, 3);
     // sorts.selectionSort(array5, renderer, 4);
 }
 
