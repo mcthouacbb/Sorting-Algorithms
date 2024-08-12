@@ -13,9 +13,10 @@ function heapLevel(nodeIdx) {
     return Math.floor(Math.log2(nodeIdx + 1));
 }
 
-export async function heapSort(array, renderer, region) {
+export function heapSort(context) {
+    const array = context.array;
     let markers = new Map();
-    async function heapify(len, node) {
+    function heapify(len, node) {
         let largest = node;
         let left = 2 * node + 1;
         let right = 2 * node + 2;
@@ -26,9 +27,9 @@ export async function heapSort(array, renderer, region) {
 
         if (largest != node) {
             [array[largest], array[node]] = [array[node], array[largest]];
-            renderer.renderArray(array, region, markers);
-            await sleep(15);
-            await heapify(len, largest);
+            context.render(markers);
+            context.timer.wait(18);
+            heapify(len, largest);
         }
         if (left < len)
             markers.set(left, colors[heapLevel(left) % colors.length]);
@@ -36,15 +37,15 @@ export async function heapSort(array, renderer, region) {
             markers.set(right, colors[heapLevel(right) % colors.length]);
     }
     for (let i = Math.floor(array.length / 2) - 1; i >= 0; i--) {
-        await heapify(array.length, i);
+        heapify(array.length, i);
         markers.set(i, colors[heapLevel(i) % colors.length]);
     }
 
     for (let i = array.length - 1; i >= 0; i--) {
         [array[i], array[0]] = [array[0], array[i]];
         markers.delete(i);
-        await heapify(i, 0);
-        renderer.renderArray(array, region, markers);
-        await sleep(15);
+        heapify(i, 0);
+        context.render(markers);
+        context.timer.wait(18);
     }
 }
