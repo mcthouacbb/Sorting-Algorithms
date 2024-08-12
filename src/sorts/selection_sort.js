@@ -1,4 +1,4 @@
-import { sleep, mapInit } from "../utils.js";
+import { mapInit } from "../utils.js";
 
 export async function selectionSort(context) {
     const array = context.array;

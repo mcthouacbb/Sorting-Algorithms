@@ -1,5 +1,3 @@
-import { sleep } from "../utils.js";
-
 let colors = [
     "rgb(147, 98, 252)",
     "rgb(247, 8, 8)",

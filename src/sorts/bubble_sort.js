@@ -1,5 +1,3 @@
-import { sleep } from "../utils.js";
-
 export async function bubbleSort(context) {
     const array = context.array;
     for (let i = 0; i < array.length - 1; i++) {

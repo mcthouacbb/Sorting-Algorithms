@@ -1,4 +1,4 @@
-import { sleep, mapInit } from "../utils.js";
+import { mapInit } from "../utils.js";
 
 // see: https://en.wikipedia.org/wiki/Shellsort#Gap_sequences
 export const GapSequence = Object.freeze({

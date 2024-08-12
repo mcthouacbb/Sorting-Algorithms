@@ -1,4 +1,4 @@
-import { sleep, mapInit } from "../utils.js";
+import { Range, mapInit } from "../utils.js";
 
 export async function insertionSort(context) {
     const array = context.array;

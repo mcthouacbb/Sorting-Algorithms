@@ -1,5 +1,4 @@
-import { sleep, mapInit } from "../utils.js";
-import { Timer } from "../timer.js";
+import { mapInit } from "../utils.js";
 
 function partition(context, begin, end, pivot) {
     const array = context.array;
