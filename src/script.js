@@ -42,6 +42,7 @@ async function init() {
     sorts.heapSort(renderer.createContext(array.slice(), 2));
     sorts.mergeSort(renderer.createContext(array.slice(), 3), renderer.createContext(array.slice(), 4));
     
+    
     prevTime = performance.now();
     window.requestAnimationFrame(testRender);
 }
