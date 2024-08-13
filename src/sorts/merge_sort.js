@@ -18,8 +18,7 @@ function* merge(timer, contextSrc, contextDst, begin, begin2, end) {
 }
 
 export function* mergeSort(context1, context2) {
-    const timer = new Timer();
-    yield* mergeSortImpl(timer, context1, context2, 0, context1.array.length);
+    yield* mergeSortImpl(new Timer(), context1, context2, 0, context1.array.length);
 }
 
 function* mergeSortImpl(timer, contextSrc, contextDst, begin, end) {

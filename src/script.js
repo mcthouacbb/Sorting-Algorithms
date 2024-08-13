@@ -65,9 +65,9 @@ async function init() {
     
     await sleep(250);
 
-    sortRenderers.push(new SortRenderer(sorts.bubbleSort(renderer.createContext(array.slice(), 0))));
-    sortRenderers.push(new SortRenderer(sorts.heapSort(renderer.createContext(array.slice(), 1))));
-    sortRenderers.push(new SortRenderer(sorts.insertionSort(renderer.createContext(array.slice(), 2))));
+    sortRenderers.push(new SortRenderer(sorts.quickSort(renderer.createContext(array.slice(), 0))));
+    sortRenderers.push(new SortRenderer(sorts.shellSort(renderer.createContext(array.slice(), 1))));
+    sortRenderers.push(new SortRenderer(sorts.selectionSort(renderer.createContext(array.slice(), 2))));
     sortRenderers.push(new SortRenderer(sorts.mergeSort(renderer.createContext(array.slice(), 3), renderer.createContext(array.slice(), 4))));
 // for (const render of )
         // console.log(render);

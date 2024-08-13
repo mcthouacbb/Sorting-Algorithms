@@ -1,4 +1,5 @@
 import { mapInit } from "../utils.js";
+import { Timer } from "../timer.js";
 
 // see: https://en.wikipedia.org/wiki/Shellsort#Gap_sequences
 export const GapSequence = Object.freeze({
@@ -38,14 +39,15 @@ const GAPS = [
     Kn73Gaps
 ];
 
-export function shellSort(context, sequence = GapSequence.Ci01) {
+export function* shellSort(context, sequence = GapSequence.Ci01) {
     const array = context.array;
+    const timer = new Timer();
     for (const gap of GAPS[sequence]) {
         for (let i = gap; i < array.length; i++) {
             for (let j = i; j >= gap && array[j] < array[j - gap]; j -= gap) {
                 [array[j], array[j - gap]] = [array[j - gap], array[j]];
-                context.render(mapInit([i, j - gap], ["rgb(147, 98, 252)", "rgb(242, 143, 44)"]));
-                context.timer.wait(13);
+                yield context.render(timer, mapInit([i, j - gap], ["rgb(147, 98, 252)", "rgb(242, 143, 44)"]));
+                timer.wait(13);
             }
         }
     }
