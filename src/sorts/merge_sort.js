@@ -1,5 +1,6 @@
 import { mapInit } from "../utils.js";
 import { Timer } from "../timer.js";
+import { MultiRender } from "../context.js";
 
 function* merge(timer, contextSrc, contextDst, begin, begin2, end) {
     const srcArray = contextSrc.array;
@@ -11,8 +12,10 @@ function* merge(timer, contextSrc, contextDst, begin, begin2, end) {
             dstArray[curr] = srcArray[srcL++];
         else
             dstArray[curr] = srcArray[srcR++];
-        yield contextSrc.render(timer, mapInit([srcL, srcR, end], ["rgb(0, 255, 0)", "rgb(0, 255, 0)", "rgb(255, 0, 0)"]));
-        yield contextDst.render(timer, mapInit([curr, end], ["rgb(0, 255, 0)", "rgb(255, 0, 0)"]));
+        yield new MultiRender([
+            contextSrc.render(timer, mapInit([srcL, srcR, end], ["rgb(0, 255, 0)", "rgb(0, 255, 0)", "rgb(255, 0, 0)"])),
+            contextDst.render(timer, mapInit([curr, end], ["rgb(0, 255, 0)", "rgb(255, 0, 0)"]))
+        ]);
         timer.wait(8);
     }
 }

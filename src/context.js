@@ -9,6 +9,13 @@ export class RenderContext {
     }
 }
 
+export class MultiRender {
+    constructor(renders) {
+        this.time = renders[0].time;
+        this.renders = renders;
+    }
+}
+
 class Render {
     constructor(time, array, region, markers) {
         this.time = time;
