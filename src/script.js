@@ -8,13 +8,18 @@ export class SortRenderer {
     constructor(sort) {
         this.sort = sort;
         this.renders = [this.sort.next().value];
+        this.done = false;
     }
 
     getNextRender(time) {
+        if (this.done)
+            return this.renders[this.renders.length - 1];
         while (this.renders[this.renders.length - 1].time < time) {
             let next = this.sort.next();
-            if (next.done)
-                return null;
+            if (next.done) {
+                this.done = true;
+                return this.renders[this.renders.length - 1];
+            }
             this.renders.push(next.value);
         }
         this.renders.splice(0, this.renders.length - 2);
@@ -44,19 +49,24 @@ function testRender() {
     prevTime = currTime;
 
     time += dt;
-    renderer.render(sortRenderer.getNextRender(time));
+    for (const sortRenderer of sortRenderers) {
+        if (sortRenderer.done)
+            continue;
+        renderer.render(sortRenderer.getNextRender(time));
+    }
 
     window.requestAnimationFrame(testRender);
 }
 
 let context;
-let sortRenderer;
+const sortRenderers = [];
 async function init() {
     renderer.setSize(1200, 500, 4, 1);
     
     await sleep(250);
 
-    sortRenderer = new SortRenderer(sorts.bubbleSort(renderer.createContext(array.slice(), 0)));
+    sortRenderers.push(new SortRenderer(sorts.bubbleSort(renderer.createContext(array.slice(), 0))));
+    sortRenderers.push(new SortRenderer(sorts.heapSort(renderer.createContext(array.slice(), 1))));
     // for (const render of )
         // console.log(render);
     
