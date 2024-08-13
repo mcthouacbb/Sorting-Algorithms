@@ -4,6 +4,24 @@ import * as sorts from "./sorts/sorts.js";
 import { sleep } from "./utils.js";
 import { RenderContext } from "./context.js";
 
+export class SortRenderer {
+    constructor(sort) {
+        this.sort = sort;
+        this.renders = [this.sort.next().value];
+    }
+
+    getNextRender(time) {
+        while (this.renders[this.renders.length - 1].time < time) {
+            let next = this.sort.next();
+            if (next.done)
+                return null;
+            this.renders.push(next.value);
+        }
+        this.renders.splice(0, this.renders.length - 2);
+        return this.renders[Math.max(this.renders.length - 2, 0)];
+    }
+}
+
 function dist(i) {
     // return 6 * i * i * i * i * i - 15 * i * i * i * i + 10 * i * i * i;
     return i;
@@ -26,21 +44,26 @@ function testRender() {
     prevTime = currTime;
 
     time += dt;
-    renderer.renderContexts(time);
+    renderer.render(sortRenderer.getNextRender(time));
 
     window.requestAnimationFrame(testRender);
 }
 
 let context;
+let sortRenderer;
 async function init() {
     renderer.setSize(1200, 500, 4, 1);
     
     await sleep(250);
 
-    sorts.shellSort(renderer.createContext(array.slice(), 0));
-    sorts.quickSort(renderer.createContext(array.slice(), 1));
-    sorts.heapSort(renderer.createContext(array.slice(), 2));
-    sorts.mergeSort(renderer.createContext(array.slice(), 3), renderer.createContext(array.slice(), 4));
+    sortRenderer = new SortRenderer(sorts.bubbleSort(renderer.createContext(array.slice(), 0)));
+    // for (const render of )
+        // console.log(render);
+    
+    // sorts.shellSort(renderer.createContext(array.slice(), 0));
+    // sorts.quickSort(renderer.createContext(array.slice(), 1));
+    // sorts.heapSort(renderer.createContext(array.slice(), 2));
+    // sorts.mergeSort(renderer.createContext(array.slice(), 3), renderer.createContext(array.slice(), 4));
     
     
     prevTime = performance.now();

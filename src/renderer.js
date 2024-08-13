@@ -12,11 +12,8 @@ class Renderer {
         this.contexts = [];
     }
 
-    renderContexts(time) {
-        for (const ctx of this.contexts) {
-            let render = ctx.selectRender(time);
-            this.renderArray(render.array, ctx.region, render.markers);
-        }
+    render(render) {
+        this.renderArray(render.array, render.region, render.markers);
     }
 
     createContext(array, region) {
