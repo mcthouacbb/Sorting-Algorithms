@@ -9,6 +9,29 @@ export class RenderContext {
     }
 }
 
+export class SortRenderer {
+    constructor(sort) {
+        this.sort = sort;
+        this.renders = [this.sort.next().value];
+        this.done = false;
+    }
+
+    getNextRender(time) {
+        if (this.done)
+            return this.renders[this.renders.length - 1];
+        while (this.renders[this.renders.length - 1].time < time) {
+            let next = this.sort.next();
+            if (next.done) {
+                this.done = true;
+                return this.renders[this.renders.length - 1];
+            }
+            this.renders.push(next.value);
+        }
+        this.renders.splice(0, this.renders.length - 2);
+        return this.renders[Math.max(this.renders.length - 2, 0)];
+    }
+}
+
 export class MultiRender {
     constructor(renders) {
         this.time = renders[0].time;

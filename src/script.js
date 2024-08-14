@@ -2,30 +2,7 @@ import { renderer } from "./renderer.js";
 import { shuffle } from "./utils.js";
 import * as sorts from "./sorts/sorts.js";
 import { sleep } from "./utils.js";
-import { RenderContext } from "./context.js";
-
-export class SortRenderer {
-    constructor(sort) {
-        this.sort = sort;
-        this.renders = [this.sort.next().value];
-        this.done = false;
-    }
-
-    getNextRender(time) {
-        if (this.done)
-            return this.renders[this.renders.length - 1];
-        while (this.renders[this.renders.length - 1].time < time) {
-            let next = this.sort.next();
-            if (next.done) {
-                this.done = true;
-                return this.renders[this.renders.length - 1];
-            }
-            this.renders.push(next.value);
-        }
-        this.renders.splice(0, this.renders.length - 2);
-        return this.renders[Math.max(this.renders.length - 2, 0)];
-    }
-}
+import { RenderContext, SortRenderer } from "./context.js";
 
 function dist(i) {
     // return 6 * i * i * i * i * i - 15 * i * i * i * i + 10 * i * i * i;
