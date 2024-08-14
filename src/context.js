@@ -1,31 +1,49 @@
-import { Timer } from "./timer.js";
-
 export class RenderContext {
     constructor(array, region) {
-        this.timer = new Timer();
         this.region = region;
         this.array = array;
-        this.renders = [];
     }
 
-    render(markers = new Map()) {
-        this.renders.push(new Render(this.timer.currTime, this.array, markers));
+    render(timer, markers = new Map()) {
+        return new Render(timer.currTime, this.array, this.region, markers);
+    }
+}
+
+export class SortRenderer {
+    constructor(sort) {
+        this.sort = sort;
+        this.renders = [this.sort.next().value];
+        this.done = false;
     }
 
-    selectRender(currTime) {
-        let i = this.renders.length - 1;
-        for (; i >= 0; i--) {
-            if (this.renders[i].time <= currTime)
-                break;
+    getNextRender(time) {
+        if (this.done)
+            return this.renders[this.renders.length - 1];
+        while (this.renders[this.renders.length - 1].time < time) {
+            let next = this.sort.next();
+            if (next.done) {
+                this.done = true;
+                return this.renders[this.renders.length - 1];
+            }
+            this.renders.push(next.value);
         }
-        return this.renders[i];
+        this.renders.splice(0, this.renders.length - 2);
+        return this.renders[Math.max(this.renders.length - 2, 0)];
+    }
+}
+
+export class MultiRender {
+    constructor(renders) {
+        this.time = renders[0].time;
+        this.renders = renders;
     }
 }
 
 class Render {
-    constructor(time, array, markers) {
+    constructor(time, array, region, markers) {
         this.time = time;
         this.array = array.slice();
+        this.region = region;
         this.markers = new Map(markers);
     }
 }

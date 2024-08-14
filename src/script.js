@@ -2,7 +2,7 @@ import { renderer } from "./renderer.js";
 import { shuffle } from "./utils.js";
 import * as sorts from "./sorts/sorts.js";
 import { sleep } from "./utils.js";
-import { RenderContext } from "./context.js";
+import { RenderContext, SortRenderer } from "./context.js";
 
 function dist(i) {
     // return 6 * i * i * i * i * i - 15 * i * i * i * i + 10 * i * i * i;
@@ -26,22 +26,26 @@ function testRender() {
     prevTime = currTime;
 
     time += dt;
-    renderer.renderContexts(time);
+    for (const sortRenderer of sortRenderers) {
+        if (sortRenderer.done)
+            continue;
+        renderer.render(sortRenderer.getNextRender(time));
+    }
 
     window.requestAnimationFrame(testRender);
 }
 
 let context;
+const sortRenderers = [];
 async function init() {
     renderer.setSize(1200, 500, 4, 1);
     
     await sleep(250);
 
-    sorts.shellSort(renderer.createContext(array.slice(), 0));
-    sorts.quickSort(renderer.createContext(array.slice(), 1));
-    sorts.heapSort(renderer.createContext(array.slice(), 2));
-    sorts.mergeSort(renderer.createContext(array.slice(), 3), renderer.createContext(array.slice(), 4));
-    
+    sortRenderers.push(new SortRenderer(sorts.shellSort(renderer.createContext(array.slice(), 0))));
+    sortRenderers.push(new SortRenderer(sorts.quickSort(renderer.createContext(array.slice(), 1))));
+    sortRenderers.push(new SortRenderer(sorts.heapSort(renderer.createContext(array.slice(), 2))));
+    sortRenderers.push(new SortRenderer(sorts.mergeSort(renderer.createContext(array.slice(), 3), renderer.createContext(array.slice(), 4))));
     
     prevTime = performance.now();
     window.requestAnimationFrame(testRender);

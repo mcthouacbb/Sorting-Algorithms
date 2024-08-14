@@ -1,4 +1,4 @@
-import { RenderContext } from "./context.js";
+import { RenderContext, MultiRender } from "./context.js";
 
 const canvas = document.getElementById("render-canvas");
 const MAX_VALUE = 100;
@@ -12,10 +12,12 @@ class Renderer {
         this.contexts = [];
     }
 
-    renderContexts(time) {
-        for (const ctx of this.contexts) {
-            let render = ctx.selectRender(time);
-            this.renderArray(render.array, ctx.region, render.markers);
+    render(render) {
+        if (render instanceof MultiRender) {
+            for (const subRender of render.renders)
+                this.render(subRender);
+        } else {
+            this.renderArray(render.array, render.region, render.markers);
         }
     }
 
