@@ -10,13 +10,15 @@ export class RenderContext {
 }
 
 export class SortRenderer {
-    constructor(sort) {
+    constructor(sort, startTime) {
         this.sort = sort;
         this.renders = [this.sort.next().value];
         this.done = false;
+        this.startTime = startTime;
     }
 
     getNextRender(time) {
+        time -= this.startTime;
         if (this.done)
             return this.renders[this.renders.length - 1];
         while (this.renders[this.renders.length - 1].time < time) {

@@ -20,12 +20,26 @@ shuffle(array);
 let prevTime;
 let time = 0;
 
+let context;
+const sortRenderers = [];
+
+function addSort(currTime, sort) {
+    let sortRenderer = new SortRenderer(sort, currTime);
+    sortRenderers.push(sortRenderer);
+}
+
+let x = false;
+
 function testRender() {
     let currTime = performance.now();
     let dt = currTime - prevTime;
     prevTime = currTime;
 
     time += dt;
+    if (time > 10000 && !x) {
+        x = true;
+        addSort(time, sorts.quickSort(renderer.createContext(array.slice(), 1)));
+    }
     for (const sortRenderer of sortRenderers) {
         if (sortRenderer.done)
             continue;
@@ -34,20 +48,17 @@ function testRender() {
 
     window.requestAnimationFrame(testRender);
 }
-
-let context;
-const sortRenderers = [];
 async function init() {
     renderer.setSize(1200, 500, 4, 1);
     
     await sleep(250);
 
-    sortRenderers.push(new SortRenderer(sorts.shellSort(renderer.createContext(array.slice(), 0))));
-    sortRenderers.push(new SortRenderer(sorts.quickSort(renderer.createContext(array.slice(), 1))));
-    sortRenderers.push(new SortRenderer(sorts.heapSort(renderer.createContext(array.slice(), 2))));
-    sortRenderers.push(new SortRenderer(sorts.mergeSort(renderer.createContext(array.slice(), 3), renderer.createContext(array.slice(), 4))));
+    addSort(10, sorts.shellSort(renderer.createContext(array.slice(), 0)));
+    // addSort(sorts.quickSort(renderer.createContext(array.slice(), 1)));
+    // addSort(sorts.heapSort(renderer.createContext(array.slice(), 2)));
+    // addSort(sorts.mergeSort(renderer.createContext(array.slice(), 3), renderer.createContext(array.slice(), 4)));
     
-    prevTime = performance.now();
+    prevTime = performance.now() - 100;
     window.requestAnimationFrame(testRender);
 }
 
