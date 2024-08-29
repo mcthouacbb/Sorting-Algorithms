@@ -6,7 +6,8 @@ import { RenderContext, SortRenderer } from "./context.js";
 
 function dist(i) {
     // return 6 * i * i * i * i * i - 15 * i * i * i * i + 10 * i * i * i;
-    return i;
+    // return 2*i*i*i - 3*i*i + 2*i;
+    return -8*i*i*i*i*i + 20*i*i*i*i - 14*i*i*i + 1*i*i + 2*i
 }
 
 const array = new Array(300);
