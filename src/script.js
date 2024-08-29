@@ -30,16 +30,24 @@ function addSort(currTime, sort) {
 
 let x = false;
 
+document.getElementById("quicksort-btn").addEventListener("click", function() {
+    addSort(time - 1, sorts.quickSort(renderer.createContext(array.slice(), 0)));
+});
+
+document.getElementById("mergesort-btn").addEventListener("click", function() {
+    addSort(time - 1, sorts.mergeSort(renderer.createContext(array.slice(), 1), renderer.createContext(array.slice(), 2)));
+});
+
+document.getElementById("heapsort-btn").addEventListener("click", function() {
+    addSort(time - 1, sorts.heapSort(renderer.createContext(array.slice(), 3)));
+});
+
 function testRender() {
     let currTime = performance.now();
     let dt = currTime - prevTime;
     prevTime = currTime;
 
     time += dt;
-    if (time > 10000 && !x) {
-        x = true;
-        addSort(time, sorts.quickSort(renderer.createContext(array.slice(), 1)));
-    }
     for (const sortRenderer of sortRenderers) {
         if (sortRenderer.done)
             continue;
@@ -52,11 +60,6 @@ async function init() {
     renderer.setSize(1200, 500, 4, 1);
     
     await sleep(250);
-
-    addSort(10, sorts.shellSort(renderer.createContext(array.slice(), 0)));
-    // addSort(sorts.quickSort(renderer.createContext(array.slice(), 1)));
-    // addSort(sorts.heapSort(renderer.createContext(array.slice(), 2)));
-    // addSort(sorts.mergeSort(renderer.createContext(array.slice(), 3), renderer.createContext(array.slice(), 4)));
     
     prevTime = performance.now() - 100;
     window.requestAnimationFrame(testRender);
