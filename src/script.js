@@ -26,6 +26,7 @@ const sortRenderers = [];
 
 function addSort(currTime, sort) {
     let sortRenderer = new SortRenderer(sort, currTime);
+    console.log(sortRenderer);
     sortRenderers.push(sortRenderer);
 }
 
@@ -43,6 +44,22 @@ document.getElementById("heapsort-btn").addEventListener("click", function() {
     addSort(time - 1, sorts.heapSort(renderer.createContext(array.slice(), 3)));
 });
 
+document.getElementById("shellsort-btn").addEventListener("click", function() {
+    addSort(time - 1, sorts.shellSort(renderer.createContext(array.slice(), 4)));
+});
+
+document.getElementById("insertionsort-btn").addEventListener("click", function() {
+    addSort(time - 1, sorts.insertionSort(renderer.createContext(array.slice(), 5)));
+});
+
+document.getElementById("selectionsort-btn").addEventListener("click", function() {
+    addSort(time - 1, sorts.selectionSort(renderer.createContext(array.slice(), 5)));
+});
+
+document.getElementById("bubblesort-btn").addEventListener("click", function() {
+    addSort(time - 1, sorts.bubbleSort(renderer.createContext(array.slice(), 5)));
+});
+
 function testRender() {
     let currTime = performance.now();
     let dt = currTime - prevTime;
@@ -58,7 +75,7 @@ function testRender() {
     window.requestAnimationFrame(testRender);
 }
 async function init() {
-    renderer.setSize(1200, 500, 4, 1);
+    renderer.setSize(1200, 600, 4, 1);
     
     await sleep(250);
     
