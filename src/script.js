@@ -6,7 +6,8 @@ import { RenderContext, SortRenderer } from "./context.js";
 
 function dist(i) {
     // return 6 * i * i * i * i * i - 15 * i * i * i * i + 10 * i * i * i;
-    return i;
+    // return 2*i*i*i - 3*i*i + 2*i;
+    return -8*i*i*i*i*i + 20*i*i*i*i - 14*i*i*i + 1*i*i + 2*i
 }
 
 const array = new Array(300);
@@ -19,6 +20,45 @@ shuffle(array);
 
 let prevTime;
 let time = 0;
+
+let context;
+const sortRenderers = [];
+
+function addSort(currTime, sort) {
+    let sortRenderer = new SortRenderer(sort, currTime);
+    console.log(sortRenderer);
+    sortRenderers.push(sortRenderer);
+}
+
+let x = false;
+
+document.getElementById("quicksort-btn").addEventListener("click", function() {
+    addSort(time - 1, sorts.quickSort(renderer.createContext(array.slice(), 0)));
+});
+
+document.getElementById("mergesort-btn").addEventListener("click", function() {
+    addSort(time - 1, sorts.mergeSort(renderer.createContext(array.slice(), 1), renderer.createContext(array.slice(), 2)));
+});
+
+document.getElementById("heapsort-btn").addEventListener("click", function() {
+    addSort(time - 1, sorts.heapSort(renderer.createContext(array.slice(), 3)));
+});
+
+document.getElementById("shellsort-btn").addEventListener("click", function() {
+    addSort(time - 1, sorts.shellSort(renderer.createContext(array.slice(), 4)));
+});
+
+document.getElementById("insertionsort-btn").addEventListener("click", function() {
+    addSort(time - 1, sorts.insertionSort(renderer.createContext(array.slice(), 5)));
+});
+
+document.getElementById("selectionsort-btn").addEventListener("click", function() {
+    addSort(time - 1, sorts.selectionSort(renderer.createContext(array.slice(), 5)));
+});
+
+document.getElementById("bubblesort-btn").addEventListener("click", function() {
+    addSort(time - 1, sorts.bubbleSort(renderer.createContext(array.slice(), 5)));
+});
 
 function testRender() {
     let currTime = performance.now();
@@ -34,20 +74,12 @@ function testRender() {
 
     window.requestAnimationFrame(testRender);
 }
-
-let context;
-const sortRenderers = [];
 async function init() {
-    renderer.setSize(1200, 500, 4, 1);
+    renderer.setSize(1200, 600, 4, 1);
     
     await sleep(250);
-
-    sortRenderers.push(new SortRenderer(sorts.shellSort(renderer.createContext(array.slice(), 0))));
-    sortRenderers.push(new SortRenderer(sorts.quickSort(renderer.createContext(array.slice(), 1))));
-    sortRenderers.push(new SortRenderer(sorts.heapSort(renderer.createContext(array.slice(), 2))));
-    sortRenderers.push(new SortRenderer(sorts.mergeSort(renderer.createContext(array.slice(), 3), renderer.createContext(array.slice(), 4))));
     
-    prevTime = performance.now();
+    prevTime = performance.now() - 100;
     window.requestAnimationFrame(testRender);
 }
 
