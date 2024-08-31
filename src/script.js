@@ -10,13 +10,19 @@ function dist(i) {
     return -8*i*i*i*i*i + 20*i*i*i*i - 14*i*i*i + 1*i*i + 2*i
 }
 
-const array = new Array(300);
+function createArray(size) {
+    let array = new Array(size);
 
-for (let i = 0; i < array.length; i++) {
-    array[i] = Math.ceil(dist(i / (array.length - 1)) * 100);
+    for (let i = 0; i < array.length; i++) {
+        array[i] = Math.ceil(dist(i / (array.length - 1)) * 100);
+    }
+
+    shuffle(array);
+    
+    return array;
 }
 
-shuffle(array);
+let array = createArray(300);
 
 let prevTime;
 let time = 0;
@@ -60,6 +66,14 @@ document.getElementById("bubblesort-btn").addEventListener("click", function() {
     addSort(time - 1, sorts.bubbleSort(renderer.createContext(array.slice(), 5)));
 });
 
+const arraySizeSlider = document.getElementById("array-size");
+arraySizeSlider.addEventListener("input", function(e) {
+    const arraySize = parseInt(arraySizeSlider.value);
+    const arraySizeElem = document.getElementById("array-size-elem");
+    arraySizeElem.innerText = `Array size: ${arraySize}`;
+    array = createArray(arraySize);
+});
+
 function testRender() {
     let currTime = performance.now();
     let dt = currTime - prevTime;
@@ -75,7 +89,7 @@ function testRender() {
     window.requestAnimationFrame(testRender);
 }
 async function init() {
-    renderer.setSize(1200, 600, 4, 1);
+    renderer.setSize(1200, 600, 4, 1); 
     
     await sleep(250);
     
