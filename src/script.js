@@ -89,7 +89,7 @@ function testRender() {
     window.requestAnimationFrame(testRender);
 }
 async function init() {
-    renderer.setSize(1200, 600, 4, 1); 
+    renderer.setSize(1200, 600, 1);
     
     await sleep(250);
     
