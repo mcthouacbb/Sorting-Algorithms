@@ -47,7 +47,7 @@ export function* shellSort(context, sequence = GapSequence.Ci01) {
             for (let j = i; j >= gap && array[j] < array[j - gap]; j -= gap) {
                 [array[j], array[j - gap]] = [array[j - gap], array[j]];
                 yield context.render(timer, mapInit([i, j - gap], ["rgb(147, 98, 252)", "rgb(242, 143, 44)"]));
-                timer.wait(13);
+                timer.wait(13 * Math.max(Math.floor(Math.log2(Math.max(gap - 128, 1))), 1));
             }
         }
     }
