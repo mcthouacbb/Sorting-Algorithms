@@ -29,7 +29,7 @@ export function* heapSort(context) {
         if (largest != node) {
             [array[largest], array[node]] = [array[node], array[largest]];
             yield context.render(timer, markers);
-            timer.wait(18);
+            timer.wait(11);
             yield* heapify(len, largest);
         }
         if (left < len)
@@ -47,6 +47,6 @@ export function* heapSort(context) {
         markers.delete(i);
         yield* heapify(i, 0);
         yield context.render(timer, markers);
-        timer.wait(18);
+        timer.wait(11);
     }
 }
