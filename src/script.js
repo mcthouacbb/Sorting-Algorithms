@@ -74,12 +74,20 @@ arraySizeSlider.addEventListener("input", function(e) {
     array = createArray(arraySize);
 });
 
+let timeScale = 1;
+const timeScaleSlider = document.getElementById("time-scale");
+timeScaleSlider.addEventListener("input", function(e) {
+    timeScale = parseFloat(timeScaleSlider.value);
+    const timeScaleElem = document.getElementById("time-scale-elem");
+    timeScaleElem.innerText = `Time scale: ${timeScale}`;
+})
+
 function testRender() {
     let currTime = performance.now();
     let dt = currTime - prevTime;
     prevTime = currTime;
 
-    time += dt;
+    time += dt * timeScale;
     for (const sortRenderer of sortRenderers) {
         if (sortRenderer.done)
             continue;
