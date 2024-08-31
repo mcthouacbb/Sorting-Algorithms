@@ -10,8 +10,9 @@ export class RenderContext {
 }
 
 export class SortRenderer {
-    constructor(sort, startTime) {
+    constructor(sort, contexts, startTime) {
         this.sort = sort;
+        this.contexts = contexts;
         this.renders = [this.sort.next().value];
         this.done = false;
         this.startTime = startTime;
