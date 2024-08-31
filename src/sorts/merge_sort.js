@@ -16,7 +16,7 @@ function* merge(timer, contextSrc, contextDst, begin, begin2, end) {
             contextSrc.render(timer, mapInit([srcL, srcR, end], ["rgb(0, 255, 0)", "rgb(0, 255, 0)", "rgb(255, 0, 0)"])),
             contextDst.render(timer, mapInit([curr, end], ["rgb(0, 255, 0)", "rgb(255, 0, 0)"]))
         ]);
-        timer.wait(8);
+        timer.wait(6);
     }
 }
 
@@ -31,4 +31,9 @@ function* mergeSortImpl(timer, contextSrc, contextDst, begin, end) {
     yield* mergeSortImpl(timer, contextDst, contextSrc, begin, middle);
     yield* mergeSortImpl(timer, contextDst, contextSrc, middle, end);
     yield* merge(timer, contextSrc, contextDst, begin, middle, end);
+    yield new MultiRender([
+        contextSrc.render(timer, mapInit([begin, middle, end], ["rgb(0, 255, 0)", "rgb(0, 255, 0)", "rgb(255, 0, 0)"])),
+        contextDst.render(timer, mapInit([end], ["rgb(0, 255, 0)"]))
+    ]);
+    timer.wait(5);
 }
