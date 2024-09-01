@@ -30,6 +30,20 @@ let time = 0;
 let context;
 let sortRenderers = [];
 
+function findOpenRegion(num) {
+    outer: for (let i = 0; i < renderer.regions; i++) {
+        for (const renderer of sortRenderers) {
+            if (renderer.done)
+                continue;
+            for (const ctx of renderer.contexts)
+                if (ctx.region >= i && ctx.region < i + num)
+                    continue outer;
+        }
+        return i;
+    }
+    return -1;
+}
+
 function addSort(currTime, contexts, sort) {
     let sortRenderer = new SortRenderer(sort, contexts, currTime);
     for (const ctx of contexts) {
@@ -51,37 +65,58 @@ function addSort(currTime, contexts, sort) {
 let x = false;
 
 document.getElementById("quicksort-btn").addEventListener("click", function() {
-    let contexts = [renderer.createContext(array.slice(), 0)];
+    let region = findOpenRegion(1);
+    if (region == -1)
+        return;
+    let contexts = [renderer.createContext(array.slice(), region)];
     addSort(time - 1, contexts, sorts.quickSort(contexts[0]));
 });
 
 document.getElementById("mergesort-btn").addEventListener("click", function() {
-    let contexts = [renderer.createContext(array.slice(), 1), renderer.createContext(array.slice(), 2)];
+    let region = findOpenRegion(2);
+    if (region == -1)
+        return;
+    let contexts = [renderer.createContext(array.slice(), region), renderer.createContext(array.slice(), region + 1)];
     addSort(time - 1, contexts, sorts.mergeSort(contexts[0], contexts[1]));
 });
 
 document.getElementById("heapsort-btn").addEventListener("click", function() {
-    let contexts = [renderer.createContext(array.slice(), 3)];
+    let region = findOpenRegion(1);
+    if (region == -1)
+        return;
+    let contexts = [renderer.createContext(array.slice(), region)];
     addSort(time - 1, contexts, sorts.heapSort(contexts[0]));
 });
 
 document.getElementById("shellsort-btn").addEventListener("click", function() {
-    let contexts = [renderer.createContext(array.slice(), 4)];
+    let region = findOpenRegion(1);
+    if (region == -1)
+        return;
+    let contexts = [renderer.createContext(array.slice(), region)];
     addSort(time - 1, contexts, sorts.shellSort(contexts[0]));
 });
 
 document.getElementById("insertionsort-btn").addEventListener("click", function() {
-    let contexts = [renderer.createContext(array.slice(), 5)];
+    let region = findOpenRegion(1);
+    if (region == -1)
+        return;
+    let contexts = [renderer.createContext(array.slice(), region)];
     addSort(time - 1, contexts, sorts.insertionSort(contexts[0]));
 });
 
 document.getElementById("selectionsort-btn").addEventListener("click", function() {
-    let contexts = [renderer.createContext(array.slice(), 5)];
+    let region = findOpenRegion(1);
+    if (region == -1)
+        return;
+    let contexts = [renderer.createContext(array.slice(), region)];
     addSort(time - 1, contexts, sorts.selectionSort(contexts[0]));
 });
 
 document.getElementById("bubblesort-btn").addEventListener("click", function() {
-    let contexts = [renderer.createContext(array.slice(), 5)];
+    let region = findOpenRegion(1);
+    if (region == -1)
+        return;
+    let contexts = [renderer.createContext(array.slice(), region)];
     addSort(time - 1, contexts, sorts.bubbleSort(contexts[0]));
 });
 
