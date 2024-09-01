@@ -33,6 +33,10 @@ export class SortRenderer {
         this.renders.splice(0, this.renders.length - 2);
         return this.renders[Math.max(this.renders.length - 2, 0)];
     }
+
+    time() {
+        return this.renders[this.renders.length - 1].time;
+    }
 }
 
 export class MultiRender {

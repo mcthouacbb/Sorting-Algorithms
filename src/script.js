@@ -32,6 +32,9 @@ let sortRenderers = [];
 
 function addSort(currTime, contexts, sort) {
     let sortRenderer = new SortRenderer(sort, contexts, currTime);
+    for (const ctx of contexts) {
+        timeElems[ctx.region].innerText = `Time: N/A`;
+    }
 
     sortRenderers = sortRenderers.filter((sortRenderer) => {
         for (const ctx of sortRenderer.contexts)
@@ -96,7 +99,9 @@ timeScaleSlider.addEventListener("input", function(e) {
     timeScale = parseFloat(timeScaleSlider.value);
     const timeScaleElem = document.getElementById("time-scale-elem");
     timeScaleElem.innerText = `Time scale: ${timeScale}`;
-})
+});
+
+const timeElems = document.getElementsByClassName("time");
 
 function testRender() {
     let currTime = performance.now();
@@ -105,8 +110,12 @@ function testRender() {
 
     time += dt * timeScale;
     for (const sortRenderer of sortRenderers) {
-        if (sortRenderer.done)
+        if (sortRenderer.done) {
+            for (const ctx of sortRenderer.contexts) {
+                timeElems[ctx.region].innerText = `Time: ${sortRenderer.time()}ms`
+            }
             continue;
+        }
         renderer.render(sortRenderer.getNextRender(time));
     }
 
