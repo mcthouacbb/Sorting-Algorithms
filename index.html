@@ -14,11 +14,25 @@
         <button id="insertionsort-btn">Insertion sort</button>
         <button id="selectionsort-btn">Selection sort</button>
         <button id="bubblesort-btn">Bubble sort</button>
-        <canvas id = "render-canvas"></canvas>
+
+        <div id="container-thingy">
+            <canvas id = "render-canvas"></canvas>
+            
+            <div id="times">
+                <p class="time">Time: N/A</p>
+                <p class="time">Time: N/A</p>
+                <p class="time">Time: N/A</p>
+                <p class="time">Time: N/A</p>
+                <p class="time">Time: N/A</p>
+                <p class="time">Time: N/A</p>
+            </div>
+        </div>
+        
         <p id="array-size-elem">Array size: 300</p>
         <input type="range" min="50" max="600" value="300" class="slider" id="array-size">
         <p id="time-scale-elem">Time scale: 1.0</p>
         <input type="range" min="0.1" max="3.0" value="1.0" step="0.01" class="slider" id="time-scale">
+        
         <script type="module" src="src/script.js"></script>
     </body>
 </html>

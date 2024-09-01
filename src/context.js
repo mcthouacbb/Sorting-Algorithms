@@ -10,8 +10,9 @@ export class RenderContext {
 }
 
 export class SortRenderer {
-    constructor(sort, startTime) {
+    constructor(sort, contexts, startTime) {
         this.sort = sort;
+        this.contexts = contexts;
         this.renders = [this.sort.next().value];
         this.done = false;
         this.startTime = startTime;
@@ -31,6 +32,10 @@ export class SortRenderer {
         }
         this.renders.splice(0, this.renders.length - 2);
         return this.renders[Math.max(this.renders.length - 2, 0)];
+    }
+
+    time() {
+        return this.renders[this.renders.length - 1].time;
     }
 }
 

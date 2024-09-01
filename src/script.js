@@ -28,42 +28,61 @@ let prevTime;
 let time = 0;
 
 let context;
-const sortRenderers = [];
+let sortRenderers = [];
 
-function addSort(currTime, sort) {
-    let sortRenderer = new SortRenderer(sort, currTime);
-    console.log(sortRenderer);
+function addSort(currTime, contexts, sort) {
+    let sortRenderer = new SortRenderer(sort, contexts, currTime);
+    for (const ctx of contexts) {
+        timeElems[ctx.region].innerText = `Time: N/A`;
+    }
+
+    sortRenderers = sortRenderers.filter((sortRenderer) => {
+        for (const ctx of sortRenderer.contexts)
+            for (const ctx2 of contexts)
+                if (ctx.region == ctx2.region)
+                    return false;
+        return true;
+    });
+
     sortRenderers.push(sortRenderer);
+    console.log(sortRenderers);
 }
 
 let x = false;
 
 document.getElementById("quicksort-btn").addEventListener("click", function() {
-    addSort(time - 1, sorts.quickSort(renderer.createContext(array.slice(), 0)));
+    let contexts = [renderer.createContext(array.slice(), 0)];
+    addSort(time - 1, contexts, sorts.quickSort(contexts[0]));
 });
 
 document.getElementById("mergesort-btn").addEventListener("click", function() {
-    addSort(time - 1, sorts.mergeSort(renderer.createContext(array.slice(), 1), renderer.createContext(array.slice(), 2)));
+    let contexts = [renderer.createContext(array.slice(), 1), renderer.createContext(array.slice(), 2)];
+    addSort(time - 1, contexts, sorts.mergeSort(contexts[0], contexts[1]));
 });
 
 document.getElementById("heapsort-btn").addEventListener("click", function() {
-    addSort(time - 1, sorts.heapSort(renderer.createContext(array.slice(), 3)));
+    let contexts = [renderer.createContext(array.slice(), 3)];
+    addSort(time - 1, contexts, sorts.heapSort(contexts[0]));
 });
 
 document.getElementById("shellsort-btn").addEventListener("click", function() {
-    addSort(time - 1, sorts.shellSort(renderer.createContext(array.slice(), 4)));
+    let contexts = [renderer.createContext(array.slice(), 4)];
+    addSort(time - 1, contexts, sorts.shellSort(contexts[0]));
 });
 
 document.getElementById("insertionsort-btn").addEventListener("click", function() {
-    addSort(time - 1, sorts.insertionSort(renderer.createContext(array.slice(), 5)));
+    let contexts = [renderer.createContext(array.slice(), 5)];
+    addSort(time - 1, contexts, sorts.insertionSort(contexts[0]));
 });
 
 document.getElementById("selectionsort-btn").addEventListener("click", function() {
-    addSort(time - 1, sorts.selectionSort(renderer.createContext(array.slice(), 5)));
+    let contexts = [renderer.createContext(array.slice(), 5)];
+    addSort(time - 1, contexts, sorts.selectionSort(contexts[0]));
 });
 
 document.getElementById("bubblesort-btn").addEventListener("click", function() {
-    addSort(time - 1, sorts.bubbleSort(renderer.createContext(array.slice(), 5)));
+    let contexts = [renderer.createContext(array.slice(), 5)];
+    addSort(time - 1, contexts, sorts.bubbleSort(contexts[0]));
 });
 
 const arraySizeSlider = document.getElementById("array-size");
@@ -80,7 +99,9 @@ timeScaleSlider.addEventListener("input", function(e) {
     timeScale = parseFloat(timeScaleSlider.value);
     const timeScaleElem = document.getElementById("time-scale-elem");
     timeScaleElem.innerText = `Time scale: ${timeScale}`;
-})
+});
+
+const timeElems = document.getElementsByClassName("time");
 
 function testRender() {
     let currTime = performance.now();
@@ -89,8 +110,12 @@ function testRender() {
 
     time += dt * timeScale;
     for (const sortRenderer of sortRenderers) {
-        if (sortRenderer.done)
+        if (sortRenderer.done) {
+            for (const ctx of sortRenderer.contexts) {
+                timeElems[ctx.region].innerText = `Time: ${sortRenderer.time()}ms`
+            }
             continue;
+        }
         renderer.render(sortRenderer.getNextRender(time));
     }
 
