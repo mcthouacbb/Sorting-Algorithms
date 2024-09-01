@@ -93,10 +93,15 @@ arraySizeSlider.addEventListener("input", function(e) {
     array = createArray(arraySize);
 });
 
+function timeScaleFn(x) {
+    let val = Math.pow(100, x - 0.5);
+    return Math.round(val * 1000) / 1000;
+}
+
 let timeScale = 1;
 const timeScaleSlider = document.getElementById("time-scale");
 timeScaleSlider.addEventListener("input", function(e) {
-    timeScale = parseFloat(timeScaleSlider.value);
+    timeScale = timeScaleFn(parseFloat(timeScaleSlider.value));
     const timeScaleElem = document.getElementById("time-scale-elem");
     timeScaleElem.innerText = `Time scale: ${timeScale}`;
 });
