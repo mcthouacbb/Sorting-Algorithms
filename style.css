@@ -1,5 +1,9 @@
-* {
-    border: 1px solid red;
+/* * { */
+    /* border: 1px solid red; */
+/* } */
+
+#render-canvas {
+    border: 1px solid grey;
 }
 
 #container-thingy {
@@ -7,6 +11,7 @@
 }     
 
 #times {
+    border: 1px solid grey
     height: 600px;
     display: flex;
     flex-direction: column;
@@ -16,6 +21,7 @@
 }
 
 .time {
+    outline: 1px solid grey;
     height: 100px;
     min-width: 150px;
     line-height: 100px;
