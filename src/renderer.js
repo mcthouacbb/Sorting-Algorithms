@@ -8,6 +8,7 @@ class Renderer {
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
         this.sy = 1;
+        this.regions = 1;
         this.contexts = [];
     }
 
@@ -30,9 +31,13 @@ class Renderer {
         this.canvas.width = w;
         this.canvas.height = h;
         this.sy = sy;
+        this.regions = Math.floor(h / MAX_VALUE / this.sy);
     }
 
     renderArray(arr, region, markers = new Map()) {
+        // hack for now
+        region = this.regions - region - 1;
+        
         let sx = Math.min(Math.floor(this.canvas.width / arr.length), 5);
         this.ctx.clearRect(0, this.canvas.height - (region + 1) * MAX_VALUE * this.sy, this.canvas.width, MAX_VALUE * this.sy);
         for (let i = 0; i < arr.length; i++) {
