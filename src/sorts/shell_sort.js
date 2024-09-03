@@ -1,5 +1,5 @@
 import { mapInit } from "../utils.js";
-import { Timer } from "../timer.js";
+import { SortStats } from "../sort_stats.js";
 
 // see: https://en.wikipedia.org/wiki/Shellsort#Gap_sequences
 export const GapSequence = Object.freeze({
@@ -41,14 +41,19 @@ const GAPS = [
 
 export function* shellSort(context, sequence = GapSequence.Ci01) {
     const array = context.array;
-    const timer = new Timer();
+    const stats = new SortStats();
     for (const gap of GAPS[sequence]) {
         for (let i = gap; i < array.length; i++) {
-            for (let j = i; j >= gap && array[j] < array[j - gap]; j -= gap) {
+            let j = i;
+            for (; j >= gap && array[j] < array[j - gap]; j -= gap) {
+                stats.comparisons++;
+                stats.swaps++;
                 [array[j], array[j - gap]] = [array[j - gap], array[j]];
-                yield context.render(timer, mapInit([i, j - gap], ["rgb(147, 98, 252)", "rgb(242, 143, 44)"]));
-                timer.wait(5 + Math.floor(Math.log2(Math.min(gap, 128)) * 2.5));
+                yield context.render(stats, mapInit([i, j - gap], ["rgb(147, 98, 252)", "rgb(242, 143, 44)"]));
+                stats.wait(5 + Math.floor(Math.log2(Math.min(gap, 128)) * 2.5));
             }
+            if (j >= gap)
+                stats.comparisons++;
         }
     }
 }

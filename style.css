@@ -24,11 +24,16 @@ input {
     gap: 0;
 }
 
-.time {
+.time-div {
     outline: 1px solid grey;
     height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.time {
     min-width: 150px;
-    line-height: 100px;
     margin: 0;
     text-align: center;
 }
