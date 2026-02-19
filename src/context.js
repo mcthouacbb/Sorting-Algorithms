@@ -4,8 +4,11 @@ export class RenderContext {
         this.array = array;
     }
 
-    render(timer, markers = new Map()) {
-        return new Render(timer.currTime, this.array, this.region, markers);
+    render(stats, markers = new Map()) {
+        return new Render(
+            stats.currTime, stats.comparisons, stats.swaps,
+            this.array, this.region, markers
+        );
     }
 }
 
@@ -37,18 +40,30 @@ export class SortRenderer {
     time() {
         return this.renders[this.renders.length - 1].time;
     }
+
+    comparisons() {
+        return this.renders[this.renders.length - 1].comparisons;
+    }
+
+    swaps() {
+        return this.renders[this.renders.length - 1].swaps;
+    }
 }
 
 export class MultiRender {
     constructor(renders) {
         this.time = renders[0].time;
+        this.comparisons = renders[0].comparisons;
+        this.swaps = renders[0].swaps;
         this.renders = renders;
     }
 }
 
 class Render {
-    constructor(time, array, region, markers) {
+    constructor(time, comparisons, swaps, array, region, markers) {
         this.time = time;
+        this.comparisons = comparisons;
+        this.swaps = swaps;
         this.array = array.slice();
         this.region = region;
         this.markers = new Map(markers);

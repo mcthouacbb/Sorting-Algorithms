@@ -171,10 +171,10 @@ function testRender() {
 
     time += dt * timeScale;
     for (const sortRenderer of sortRenderers) {
+        for (const ctx of sortRenderer.contexts) {
+            timeElems[ctx.region].innerText = `Time: ${sortRenderer.time()}ms\nComparisons: ${sortRenderer.comparisons()}\nSwaps: ${sortRenderer.swaps()}`;
+        }
         if (sortRenderer.done) {
-            for (const ctx of sortRenderer.contexts) {
-                timeElems[ctx.region].innerText = `Time: ${sortRenderer.time()}ms`
-            }
             continue;
         }
         renderer.render(sortRenderer.getNextRender(time));

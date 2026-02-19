@@ -1,4 +1,4 @@
-import { Timer } from "../timer.js";
+import { SortStats } from "../sort_stats.js";
 
 let colors = [
     "rgb(147, 98, 252)",
@@ -15,21 +15,25 @@ function heapLevel(nodeIdx) {
 
 export function* heapSort(context) {
     const array = context.array;
-    const timer = new Timer();
+    const stats = new SortStats();
     const markers = new Map();
     function* heapify(len, node) {
         let largest = node;
         let left = 2 * node + 1;
         let right = 2 * node + 2;
+        
+        stats.comparisons++;
         if (left < len && array[left] > array[largest])
             largest = left;
+        stats.comparisons++;
         if (right < len && array[right] > array[largest])
             largest = right;
 
         if (largest != node) {
+            stats.swaps++;
             [array[largest], array[node]] = [array[node], array[largest]];
-            yield context.render(timer, markers);
-            timer.wait(11);
+            yield context.render(stats, markers);
+            stats.wait(11);
             yield* heapify(len, largest);
         }
         if (left < len)
@@ -43,10 +47,11 @@ export function* heapSort(context) {
     }
 
     for (let i = array.length - 1; i >= 0; i--) {
+        stats.swaps++;
         [array[i], array[0]] = [array[0], array[i]];
         markers.delete(i);
         yield* heapify(i, 0);
-        yield context.render(timer, markers);
-        timer.wait(11);
+        yield context.render(stats, markers);
+        stats.wait(11);
     }
 }
