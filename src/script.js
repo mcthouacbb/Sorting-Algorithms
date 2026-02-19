@@ -93,7 +93,28 @@ document.getElementById("shellsort-btn").addEventListener("click", function() {
     if (region == -1)
         return;
     let contexts = [renderer.createContext(array.slice(), region)];
-    addSort(time - 1, contexts, sorts.shellSort(contexts[0]));
+    let gapSequenceStr = document.getElementById("shell-gaps").value;
+    let gapSequence = -1;
+    switch (gapSequenceStr) {
+        case "Ci01":
+            gapSequence = sorts.GapSequence.Ci01;
+            break;
+        case "Se86":
+            gapSequence = sorts.GapSequence.Se86;
+            break;
+        case "Is85":
+            gapSequence = sorts.GapSequence.Is85;
+            break;
+        case "Se82":
+            gapSequence = sorts.GapSequence.Se82;
+            break;
+        case "Kn73":
+            gapSequence = sorts.GapSequence.Kn73;
+            break;
+        default:
+            throw new Error("Invalid gap sequence");
+    }
+    addSort(time - 1, contexts, sorts.shellSort(contexts[0], gapSequence));
 });
 
 document.getElementById("insertionsort-btn").addEventListener("click", function() {
