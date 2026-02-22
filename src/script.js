@@ -182,8 +182,12 @@ function testRender() {
 
     window.requestAnimationFrame(testRender);
 }
+
+
 async function init() {
-    renderer.setSize(1200, 600, 1);
+    let maxArraySize = Math.min(1200, innerWidth - 200);
+    document.getElementById("array-size").max = maxArraySize
+    renderer.setSize(maxArraySize, 600, 1);
     
     await sleep(250);
     

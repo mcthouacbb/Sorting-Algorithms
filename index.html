@@ -7,6 +7,12 @@
         <link href="style.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
+        <p id="array-size-elem">Array size: 300</p>
+        <input type="range" min="50" max="1200" value="300" class="slider" id="array-size">
+        <p id="time-scale-elem">Time scale: 1.0</p>
+        <input type="range" min="0.0" max="1.0" value="0.5" step="0.001" class="slider" id="time-scale">
+
+        <br/>
         <button id="quicksort-btn">Quick sort</button>
         <button id="mergesort-btn">Merge sort</button>
         <button id="heapsort-btn">Heap sort</button>
@@ -23,6 +29,7 @@
             <option value="Kn73">Kn73</option>
         </select>
 
+
         <div id="container-thingy">
             <canvas id = "render-canvas"></canvas>
             
@@ -35,11 +42,6 @@
                 <div class="time-div"><p class="time">Time: N/A<br>Comparisons: N/A<br>Swaps: N/A</p></div>
             </div>
         </div>
-        
-        <p id="array-size-elem">Array size: 300</p>
-        <input type="range" min="50" max="1200" value="300" class="slider" id="array-size">
-        <p id="time-scale-elem">Time scale: 1.0</p>
-        <input type="range" min="0.0" max="1.0" value="0.5" step="0.001" class="slider" id="time-scale">
         
         <script type="module" src="src/script.js"></script>
     </body>
