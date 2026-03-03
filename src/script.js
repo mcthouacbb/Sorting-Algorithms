@@ -80,6 +80,14 @@ document.getElementById("mergesort-btn").addEventListener("click", function() {
     addSort(time - 1, contexts, sorts.mergeSort(contexts[0], contexts[1]));
 });
 
+document.getElementById("radixsort-btn").addEventListener("click", function() {
+    let region = findOpenRegion(2);
+    if (region == -1)
+        return;
+    let contexts = [renderer.createContext(array.slice(), region), renderer.createContext(array.slice(), region + 1)];
+    addSort(time - 1, contexts, sorts.radixSort(contexts[0], contexts[1]));
+});
+
 document.getElementById("heapsort-btn").addEventListener("click", function() {
     let region = findOpenRegion(1);
     if (region == -1)
