@@ -5,3 +5,4 @@ export * from "./heap_sort.js";
 export * from "./selection_sort.js";
 export * from "./shell_sort.js";
 export * from "./merge_sort.js";
+export * from "./radix_sort.js";
